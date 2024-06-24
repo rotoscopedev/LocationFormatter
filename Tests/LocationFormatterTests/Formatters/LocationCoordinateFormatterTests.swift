@@ -51,6 +51,18 @@ struct LocationCoordinateFormatterTests {
             #expect(formatter.string(from: CLLocationCoordinate2D.nullIsland) == "31N 166021m E 000000m N")
         }
         
+        @Test func geoURI() {
+            let formatter = LocationCoordinateFormatter(format: .geoURI)
+            
+            #expect(formatter.string(from: CLLocationCoordinate2D.portTownsend) == "geo:48.11638,-122.77527")
+            #expect(formatter.string(from: CLLocationCoordinate2D.capeHorn) == "geo:-55.97917,-67.275")
+            #expect(formatter.string(from: CLLocationCoordinate2D.seychelles) == "geo:-4.67785,55.46718")
+            #expect(formatter.string(from: CLLocationCoordinate2D.capeHorn) == "geo:-55.97917,-67.275")
+            #expect(formatter.string(from: CLLocationCoordinate2D.faroeIslands) == "geo:62.06323,-6.87355")
+            #expect(formatter.string(from: CLLocationCoordinate2D.pointNemo) == "geo:-48.876667,-123.393333")
+            
+        }
+        
         @Suite struct SymbolStyle {
             
             @Test func none() {

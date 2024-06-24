@@ -142,7 +142,6 @@ struct UTMCoordinateFormatterTests {
                 #expect(coordinate.latitude.isApproximatelyEqual(to: 48.116380622937946, absoluteTolerance: 0.00001))
                 #expect(coordinate.longitude.isApproximatelyEqual(to: -122.77527139988439, absoluteTolerance: 0.00001))
             }
-                
         }
     }
 }

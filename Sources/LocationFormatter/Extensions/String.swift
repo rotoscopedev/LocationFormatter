@@ -15,7 +15,8 @@ public extension String {
             LocationCoordinateFormatter(format: .decimalDegrees),
             LocationCoordinateFormatter(format: .degreesDecimalMinutes),
             LocationCoordinateFormatter(format: .degreesMinutesSeconds),
-            LocationCoordinateFormatter(format: .utm)
+            LocationCoordinateFormatter(format: .utm),
+            LocationCoordinateFormatter(format: .geoURI),
         ]
 
         for formatter in formatters {
