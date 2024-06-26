@@ -3,7 +3,7 @@ import Numerics
 import Testing
 @testable import LocationFormatter
 
-struct LocationCoordinateFormatterTests {
+@Suite struct LocationCoordinateFormatterTests {
     
     @Suite("String Generation") struct StringGeneration {
         

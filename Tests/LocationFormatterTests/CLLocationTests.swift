@@ -2,7 +2,7 @@ import CoreLocation
 import Testing
 @testable import LocationFormatter
 
-struct CLLocationTests {
+@Suite struct CLLocationTests {
     
     @Suite struct HorizontalUncertainty {
         

@@ -4,7 +4,7 @@ import UTMConversion
 import Testing
 @testable import LocationFormatter
 
-struct LocationDegreesFormatterTests {
+@Suite struct LocationDegreesFormatterTests {
 
     @Suite("String Generation") struct StringGeneration {
         @Suite struct DecimalDegrees {

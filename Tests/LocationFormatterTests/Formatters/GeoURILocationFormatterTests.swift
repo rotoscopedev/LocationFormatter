@@ -3,9 +3,9 @@ import UTMConversion
 import Testing
 @testable import LocationFormatter
 
-struct GeoURILocationFormatterTests {
+@Suite struct GeoURILocationFormatterTests {
 
-    @Suite("String Generation") struct StringGeneration {
+    @Suite struct GeoURIStringGeneration {
         @Test func stringFromLocation() {
             let formatter = GeoURILocationFormatter()
             
@@ -49,7 +49,7 @@ struct GeoURILocationFormatterTests {
         }
     }
     
-    @Suite("String Parsing") struct StringParsing {
+    @Suite struct GeoURIStringParsing {
         @Test func locationFromString() throws {
             let formatter = GeoURILocationFormatter()
             
@@ -76,7 +76,6 @@ struct GeoURILocationFormatterTests {
         }
         
         @Test(arguments: [
-            "geo48.11638,-122.77527",
             "geo48.11638,-122.77527",
             "geo://48.11638,-122.77527",
             " geo:48.11638,-122.77527"
