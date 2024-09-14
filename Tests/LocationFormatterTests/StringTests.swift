@@ -15,5 +15,4 @@ struct StringTests {
         let coordinate = try #require(string.coordinate())
         #expect(coordinate.isApproximatelyEqual(to: .portTownsend, absoluteTolerance: 0.0001))
     }
-
 }

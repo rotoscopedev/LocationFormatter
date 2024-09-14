@@ -5,13 +5,18 @@ import Testing
 @testable import LocationFormatter
 
 @Suite struct LocationDegreesFormatterTests {
+    
+    @Test func format() {
+        let degrees = CLLocationDegrees(-55.97917)
+        let formatted = degrees.formatted(CLLocationDegrees.FormatStyle().symbolStyle(.traditional))
+        #expect(formatted == "-55.97917°")
+    }
 
     @Suite("String Generation") struct StringGeneration {
         @Suite struct DecimalDegrees {
-            
-            let formatter = LocationDegreesFormatter(format: .decimalDegrees)
-            
             @Test func orientationNone() {
+                let formatter = LocationDegreesFormatter(format: .decimalDegrees)
+                
                 #expect(formatter.string(from: -55.97917) == "-55.97917°")
                 #expect(formatter.string(from: -67.275) == "-67.275°")
                 
@@ -28,6 +33,8 @@ import Testing
             }
             
             @Test func orientationLatitude() {
+                let formatter = LocationDegreesFormatter(format: .decimalDegrees)
+                
                 #expect(formatter.string(from: -55.97917, orientation: .latitude) == "55.97917° S")
                 #expect(formatter.string(from: -4.67785, orientation: .latitude) == "4.67785° S")
                 #expect(formatter.string(from: 62.06323, orientation: .latitude) == "62.06323° N")
@@ -36,6 +43,8 @@ import Testing
             }
             
             @Test func orientationLongitude() {
+                let formatter = LocationDegreesFormatter(format: .decimalDegrees)
+                
                 #expect(formatter.string(from: -67.275, orientation: .longitude) == "67.275° W")
                 #expect(formatter.string(from: 55.46718, orientation: .longitude) ==  "55.46718° E")
                 #expect(formatter.string(from: -6.87355, orientation: .longitude) == "6.87355° W")
@@ -45,10 +54,9 @@ import Testing
         }
         
         @Suite struct DecimalDegreesMinutes {
-            
-            let formatter = LocationDegreesFormatter(format: .degreesDecimalMinutes, symbolStyle: .traditional)
-            
             @Test func orientationNone() {
+                let formatter = LocationDegreesFormatter(format: .degreesDecimalMinutes, symbolStyle: .traditional)
+                
                 #expect(formatter.string(from: -55.97917 ) == "-55° 58.750′")
                 #expect(formatter.string(from: -67.275 ) == "-67° 16.500′")
                 
@@ -65,6 +73,8 @@ import Testing
             }
             
             @Test func orientationLatitude() {
+                let formatter = LocationDegreesFormatter(format: .degreesDecimalMinutes, symbolStyle: .traditional)
+                
                 #expect(formatter.string(from: -55.97917, orientation: .latitude) == "55° 58.750′ S")
                 #expect(formatter.string(from: -4.67785, orientation: .latitude) == "4° 40.671′ S")
                 #expect(formatter.string(from: 62.06323, orientation: .latitude) == "62° 03.794′ N")
@@ -73,6 +83,8 @@ import Testing
             }
             
             @Test func orientationLongitude() {
+                let formatter = LocationDegreesFormatter(format: .degreesDecimalMinutes, symbolStyle: .traditional)
+                
                 #expect(formatter.string(from: -67.275, orientation: .longitude) == "67° 16.500′ W")
                 #expect(formatter.string(from: 55.46718, orientation: .longitude) == "55° 28.031′ E")
                 #expect(formatter.string(from: -6.87355, orientation: .longitude) == "6° 52.413′ W")
@@ -82,10 +94,9 @@ import Testing
         }
         
         @Suite struct DegreesMinutesSeconds {
-            
-            let formatter = LocationDegreesFormatter(format: .degreesMinutesSeconds, symbolStyle: .traditional, displayOptions: [.suffix])
-            
             @Test func orientationNone() {
+                let formatter = LocationDegreesFormatter(format: .degreesMinutesSeconds, symbolStyle: .traditional, displayOptions: [.suffix])
+                
                 #expect(formatter.string(from: -55.97917 ) == "-55° 58′ 45″")
                 #expect(formatter.string(from: -67.275 ) == "-67° 16′ 30″")
                 
@@ -102,6 +113,8 @@ import Testing
             }
             
             @Test func orientationLatitude() {
+                let formatter = LocationDegreesFormatter(format: .degreesMinutesSeconds, symbolStyle: .traditional, displayOptions: [.suffix])
+                
                 #expect(formatter.string(from: -55.97917, orientation: .latitude) == "55° 58′ 45″ S")
                 #expect(formatter.string(from: -4.67785, orientation: .latitude) == "4° 40′ 40″ S")
                 #expect(formatter.string(from: 62.06323, orientation: .latitude) == "62° 3′ 48″ N")
@@ -110,6 +123,8 @@ import Testing
             }
             
             @Test func orientationLongitude() {
+                let formatter = LocationDegreesFormatter(format: .degreesMinutesSeconds, symbolStyle: .traditional, displayOptions: [.suffix])
+                
                 #expect(formatter.string(from: -67.275, orientation: .longitude) == "67° 16′ 30″ W")
                 #expect(formatter.string(from: 55.46718, orientation: .longitude) == "55° 28′ 2″ E")
                 #expect(formatter.string(from: -6.87355, orientation: .longitude) == "6° 52′ 25″ W")
@@ -230,10 +245,7 @@ import Testing
     // MARK: -
     
     @Suite() struct StringParsing {
-        
         @Suite struct DecimalDegrees {
-            let formatter = LocationDegreesFormatter(format: .decimalDegrees)
-            
             @Test(arguments: [
                 "55.97917° S",
                 "55.97917°S",
@@ -243,6 +255,8 @@ import Testing
                 "-55.97917000000123"
             ])
             func decimalDegrees(string: String) {
+                let formatter = LocationDegreesFormatter(format: .decimalDegrees)
+
                 #expect(throws: Never.self) {
                     let locationDegrees = try formatter.locationDegrees(from: string)
                     #expect(locationDegrees
@@ -261,6 +275,8 @@ import Testing
                 "55.97917° s",
                 "S 55.97917° s"
             ]) func direction(string: String) {
+                let formatter = LocationDegreesFormatter(format: .decimalDegrees)
+                
                 #expect(throws: Never.self) {
                     let locationDegrees = try formatter.locationDegrees(from: string)
                     #expect(locationDegrees
@@ -276,6 +292,8 @@ import Testing
                 "55° 58.750′ S",
                 "-55 58 45"
             ]) func noMatch(string: String) {
+                let formatter = LocationDegreesFormatter(format: .decimalDegrees)
+                
                 #expect(throws: ParsingError.noMatch) {
                     try formatter.locationDegrees(from: string)
                 }
@@ -283,9 +301,11 @@ import Testing
             
             @Test(arguments: [
                 "180.0001° S",
-                "180.0001° S"
+                "180.0001°"
                 
             ]) func invalidRangeDegrees(string: String) {
+                let formatter = LocationDegreesFormatter(format: .decimalDegrees)
+                
                 #expect(
                     throws: ParsingError.invalidRangeDegrees,
                     "Expected 'DDM' format to not match 'DD' format."
@@ -295,6 +315,8 @@ import Testing
             }
             
             @Test func conflict() {
+                let formatter = LocationDegreesFormatter(format: .decimalDegrees)
+                
                 #expect(throws: ParsingError.conflict) {
                     try formatter.locationDegrees(from: "S 55.97917° N")
                 }
@@ -302,7 +324,6 @@ import Testing
         }
         
         @Suite struct DegreesDecimalMinutes {
-            let formatter = LocationDegreesFormatter(format: .degreesDecimalMinutes)
             let expected = CLLocationCoordinate2D.capeHorn.latitude
             
             @Test(arguments:[
@@ -314,6 +335,8 @@ import Testing
                 "55 58.750 S",
                 "-55 58.750"
             ]) func degreesDecimalMinutes(string: String) {
+                let formatter = LocationDegreesFormatter(format: .degreesDecimalMinutes)
+                
                 #expect(throws: Never.self) {
                     let locationDegrees = try formatter.locationDegrees(from: string)
                     #expect(locationDegrees == CLLocationCoordinate2D.capeHorn.latitude)
@@ -326,6 +349,8 @@ import Testing
                 "55° 58.750′ w",
                 "55° 58.750′W"
             ]) func directionSuffix(string: String) {
+                let formatter = LocationDegreesFormatter(format: .degreesDecimalMinutes)
+                
                 #expect(throws: Never.self) {
                     let locationDegrees = try formatter.locationDegrees(from: string)
                     #expect(locationDegrees
@@ -342,6 +367,8 @@ import Testing
                 "w 55° 58.750′",
                 "W55° 58.750′"
             ]) func directionPrefix(string: String) {
+                let formatter = LocationDegreesFormatter(format: .degreesDecimalMinutes)
+                
                 #expect(throws: Never.self) {
                     let locationDegrees = try formatter.locationDegrees(from: string)
                     #expect(locationDegrees == CLLocationCoordinate2D.capeHorn.latitude)
@@ -349,6 +376,8 @@ import Testing
             }
             
             @Test func noMatch() {
+                let formatter = LocationDegreesFormatter(format: .degreesDecimalMinutes)
+                
                 #expect(
                     throws: ParsingError.noMatch,
                     "Expected 'DD' format to not match 'DDM' format."
@@ -370,6 +399,8 @@ import Testing
                 "20° 60.001′ E",
                 "120° 60.001′ W"
             ]) func invalidRangeMinutes(string: String) {
+                let formatter = LocationDegreesFormatter(format: .degreesDecimalMinutes)
+                
                 #expect(throws: ParsingError.invalidRangeMinutes) {
                     try formatter.locationDegrees(from: string)
                 }
@@ -382,6 +413,8 @@ import Testing
                 "90° 01.001′ N",
                 "90° 01.001′ S"
             ]) func invalidRangeDegrees(string: String) {
+                let formatter = LocationDegreesFormatter(format: .degreesDecimalMinutes)
+                
                 #expect(throws: ParsingError.invalidRangeDegrees) {
                     try formatter.locationDegrees(from: string)
                 }
@@ -389,7 +422,6 @@ import Testing
         }
         
         @Suite struct DegreesMinutesSeconds {
-            let formatter = LocationDegreesFormatter(format: .degreesMinutesSeconds)
             let expected = CLLocationCoordinate2D.capeHorn.latitude
             
             @Test(arguments: [
@@ -408,6 +440,8 @@ import Testing
                 "S -55° 58′ 45″",
                 "S 55° 58′ 45″ S",
             ]) func degreesMinutesSeconds(string: String) {
+                let formatter = LocationDegreesFormatter(format: .degreesMinutesSeconds)
+
                 #expect(throws: Never.self) {
                     let locationDegrees = try formatter.locationDegrees(from: string)
                     #expect(locationDegrees
@@ -420,6 +454,8 @@ import Testing
             }
             
             @Test func noMatch() {
+                let formatter = LocationDegreesFormatter(format: .degreesMinutesSeconds)
+
                 #expect(
                     throws: ParsingError.noMatch,
                     "Expected 'DD' format to not match 'DMS' format."
@@ -457,6 +493,8 @@ import Testing
             }
             
             @Test func conflict() {
+                let formatter = LocationDegreesFormatter(format: .degreesMinutesSeconds)
+
                 #expect(
                     throws: ParsingError.conflict,
                     "Expected conflicting prefix and suffix."

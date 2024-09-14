@@ -1,5 +1,5 @@
  /// Display options
-public struct DisplayOptions: OptionSet, Sendable {
+public struct DisplayOptions: OptionSet, Sendable, Codable, Hashable {
     /// Use a suffix to to represent the cardinal direction of the coordinate.
     ///
     /// E.G. "122.77527 W" instead of  "-122.77527"

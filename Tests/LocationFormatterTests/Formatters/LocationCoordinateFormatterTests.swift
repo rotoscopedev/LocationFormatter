@@ -4,9 +4,7 @@ import Testing
 @testable import LocationFormatter
 
 @Suite struct LocationCoordinateFormatterTests {
-    
     @Suite("String Generation") struct StringGeneration {
-        
         @Test func decimalDegrees() {
             let formatter = LocationCoordinateFormatter(format: .decimalDegrees)
             
@@ -64,7 +62,6 @@ import Testing
         }
         
         @Suite struct SymbolStyle {
-            
             @Test func none() {
                 var formatter = LocationCoordinateFormatter(format: .decimalDegrees, symbolStyle: .none)
                 #expect(formatter.string(from: CLLocationCoordinate2D.capeHorn) == "55.97917 S, 67.275 W")
@@ -100,7 +97,6 @@ import Testing
         }
         
         @Suite struct DisplayOptions {
-            
             @Test func empty() {
                 let options: LocationFormatter.DisplayOptions = []
                 
@@ -170,10 +166,7 @@ import Testing
     // MARK: - String Parsing
     
     @Suite("String Parsing") struct StringParsing {
-        
         @Suite struct DecimalDegrees {
-            let formatter = LocationCoordinateFormatter(format: .decimalDegrees)
-            
             @Test(arguments: [
                 ("48.11638° N, 122.77527° W", CLLocationCoordinate2D.portTownsend),
                 ("4.67785° S, 55.46718° E", CLLocationCoordinate2D.seychelles),
@@ -182,6 +175,8 @@ import Testing
                 ("0.0° N, 0.0° E", CLLocationCoordinate2D.nullIsland)
                 
             ]) func decimalDegrees(arg: (String, CLLocationCoordinate2D)) {
+                let formatter = LocationCoordinateFormatter(format: .decimalDegrees)
+                
                 #expect(throws: Never.self) {
                     let match = try formatter.coordinate(from: arg.0)
                     #expect(match.isApproximatelyEqual(to: arg.1, absoluteTolerance: 0.0001))
@@ -195,6 +190,8 @@ import Testing
                 "S 55.97917, W 67.275",
                 "-55.97917, -67.275"
             ]) func patternMatching(string: String) {
+                let formatter = LocationCoordinateFormatter(format: .decimalDegrees)
+                
                 #expect(throws: Never.self) {
                     let match = try formatter.coordinate(from: string)
                     #expect(match.isApproximatelyEqual(
@@ -211,6 +208,8 @@ import Testing
                 "55.97917S 67.275W",
                 "S55.97917 W67.275"
             ]) func googleFormat(string: String) {
+                let formatter = LocationCoordinateFormatter(format: .decimalDegrees)
+                
                 #expect(throws: Never.self) {
                     let match = try formatter.coordinate(from: string)
                     #expect(match.isApproximatelyEqual(
@@ -222,8 +221,6 @@ import Testing
         }
         
         @Suite struct DegreesDecimalMinutes {
-            let formatter = LocationCoordinateFormatter(format: .degreesDecimalMinutes)
-            
             @Test(arguments: [
                 ("48° 06.983′ N, 122° 46.516′ W", CLLocationCoordinate2D.portTownsend),
                 ("4° 40.671′ S, 55° 28.031′ E", CLLocationCoordinate2D.seychelles),
@@ -232,6 +229,8 @@ import Testing
                 ("0° 00.000′ N, 0° 00.000′ E", CLLocationCoordinate2D.nullIsland)
                 
             ]) func decimalDegrees(arg: (String, CLLocationCoordinate2D)) {
+                let formatter = LocationCoordinateFormatter(format: .degreesDecimalMinutes)
+                
                 #expect(throws: Never.self) {
                     let match = try formatter.coordinate(from: arg.0)
                     #expect(match.isApproximatelyEqual(to: arg.1, absoluteTolerance: 0.0001))
@@ -245,6 +244,8 @@ import Testing
                 "55° 58.750' S, 67° 16.500' W",
                 "S 55° 58.750′ S, W 67° 16.500′"
             ]) func patternMatching(string: String) {
+                let formatter = LocationCoordinateFormatter(format: .degreesDecimalMinutes)
+                
                 #expect(throws: Never.self) {
                     let match = try formatter.coordinate(from: string)
                     #expect(match.isApproximatelyEqual(
@@ -258,9 +259,11 @@ import Testing
             @Test(arguments: [
                 "55°58.750′S 67°16.500′W",
                 "-55°58.750′ -67°16.500′",
-                "55°58.750'S, 67°16.500'W",
-                "S55°58.750′S, W67°16.500′"
+                "55°58.750'S 67°16.500'W",
+                "S55°58.750′S W67°16.500′"
             ]) func googleFormat(string: String) {
+                let formatter = LocationCoordinateFormatter(format: .degreesDecimalMinutes)
+                
                 #expect(throws: Never.self) {
                     let match = try formatter.coordinate(from: string)
                     #expect(match.isApproximatelyEqual(
@@ -272,8 +275,6 @@ import Testing
         }
         
         @Suite struct DegreesMinutesSeconds {
-            let formatter = LocationCoordinateFormatter(format: .degreesMinutesSeconds)
-            
             @Test(arguments: [
                 ("48° 6′ 59″ N, 122° 46′ 31″ W", CLLocationCoordinate2D.portTownsend),
                 ("4° 40′ 40″ S, 55° 28′ 2″ E", CLLocationCoordinate2D.seychelles),
@@ -282,6 +283,8 @@ import Testing
                 ("0° 0′ 0″ N, 0° 0′ 0″ E", CLLocationCoordinate2D.nullIsland)
                 
             ]) func decimalDegrees(arg: (String, CLLocationCoordinate2D)) {
+                let formatter = LocationCoordinateFormatter(format: .degreesMinutesSeconds)
+                
                 #expect(throws: Never.self) {
                     let match = try formatter.coordinate(from: arg.0)
                     #expect(match.isApproximatelyEqual(to: arg.1, absoluteTolerance: 0.001))
@@ -297,6 +300,8 @@ import Testing
                 "55°58′45″S, 67°16′30″W",
                 "55 58 45 S, 67 16 30 W",
             ]) func patternMatching(string: String) {
+                let formatter = LocationCoordinateFormatter(format: .degreesMinutesSeconds)
+                
                 #expect(throws: Never.self) {
                     let match = try formatter.coordinate(from: string)
                     #expect(match.isApproximatelyEqual(
@@ -313,6 +318,8 @@ import Testing
                 "S55°58′45″ W67°16′30″",
                 "55°58′45″S 67°16′30″W"
             ]) func googleFormat(string: String) {
+                let formatter = LocationCoordinateFormatter(format: .degreesMinutesSeconds)
+                
                 #expect(throws: Never.self) {
                     let match = try formatter.coordinate(from: string)
                     #expect(match.isApproximatelyEqual(
@@ -324,8 +331,6 @@ import Testing
         }
         
         @Suite struct UTM {
-            let formatter = LocationCoordinateFormatter(format: .utm)
-            
             @Test(arguments: [
                 ("10U 516726m E 5329260m N", CLLocationCoordinate2D.portTownsend),
                 ("19F 607636m E 3794896m N", CLLocationCoordinate2D.capeHorn),
@@ -335,6 +340,8 @@ import Testing
                 ("31N 166021m E 000000m N", CLLocationCoordinate2D.nullIsland)
                 
             ]) func decimalDegrees(arg: (String, CLLocationCoordinate2D)) {
+                let formatter = LocationCoordinateFormatter(format: .utm)
+                
                 #expect(throws: Never.self) {
                     let match = try formatter.coordinate(from: arg.0)
                     #expect(match.isApproximatelyEqual(to: arg.1, absoluteTolerance: 0.00001))
@@ -346,6 +353,8 @@ import Testing
                 "10U   516726m E   5329260m N",
                 "10U 516726M e 5329260m n"
             ]) func utm(string: String) {
+                let formatter = LocationCoordinateFormatter(format: .utm)
+                
                 #expect(throws: Never.self) {
                     let match = try formatter.coordinate(from: string)
                     #expect(match.isApproximatelyEqual(
@@ -356,6 +365,7 @@ import Testing
             }
             
             @Test func latitudeBandIsRequired() {
+                let formatter = LocationCoordinateFormatter(format: .utm)
                 // Latitude band is required because without it we cant determine the correct latitude.
                 #expect(throws: ParsingError.noMatch) {
                     try formatter.location(from: "11 727771mE 5193170mN")

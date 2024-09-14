@@ -54,7 +54,7 @@ public final class LocationDegreesFormatter: Formatter {
     // MARK: - Public
 
     /// Returns a string containing the formatted value of the provided `CLLocationDegrees`.
-    public func string(from: CLLocationDegrees, orientation: CoordinateOrientation = .none) -> String? {
+    public func string(from: CLLocationDegrees, orientation: CoordinateOrientation = .unspecified) -> String? {
         var degrees = from
 
         guard orientation.range.contains(degrees) else { return nil }
@@ -100,7 +100,7 @@ public final class LocationDegreesFormatter: Formatter {
     ///   - str: The string to be parsed.
     ///   - orientation: Expected orientation (latitude or longitude). Optional, default is none.
     /// - Returns: a `CLLocationDegrees`.
-    public func locationDegrees(from str: String, orientation: CoordinateOrientation = .none) throws -> CLLocationDegrees {
+    public func locationDegrees(from str: String, orientation: CoordinateOrientation = .unspecified) throws -> CLLocationDegrees {
         let degrees = try number(for: str, orientation: orientation).doubleValue
         guard orientation.range.contains(degrees) else {
             throw ParsingError.invalidRangeDegrees
@@ -112,14 +112,14 @@ public final class LocationDegreesFormatter: Formatter {
 
     override public func string(for obj: Any?) -> String? {
         guard let degrees = obj as? CLLocationDegrees else { return nil }
-        return string(from: degrees, orientation: .none)
+        return string(from: degrees, orientation: .unspecified)
     }
 
     override public func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
                                         for string: String,
                                         errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
         do {
-            obj?.pointee = try number(for: string, orientation: .none)
+            obj?.pointee = try number(for: string, orientation: .unspecified)
             return obj?.pointee != nil
         } catch let err {
             error?.pointee = err.localizedDescription as NSString
@@ -252,7 +252,7 @@ public final class LocationDegreesFormatter: Formatter {
                 if degrees < 0 { degrees.negate() }
             }
 
-            if orientation != .none {
+            if orientation != .unspecified {
                 // Expected orientation does not match parsed direction
                 guard orientation == direction.orientation else { throw ParsingError.invalidDirection }
             }

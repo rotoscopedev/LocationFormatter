@@ -32,21 +32,6 @@ import Testing
             #expect(formatter.string(fromLocation: .challengerDeep) == "geo:11.373333,142.591667,-10920;crs=wgs84;u=10")
             #expect(formatter.string(fromLocation: .pointNemo) == "geo:-48.876667,-123.393333;crs=wgs84")
         }
-        
-        @Test func suffixDisplayOption() {
-            let formatter = UTMCoordinateFormatter(displayOptions: [.suffix])
-            #expect(formatter.string(from: .portTownsend) == "10U 516726m E 5329260m N")
-        }
-        
-        @Test func compactDisplayOption() {
-            let formatter = UTMCoordinateFormatter(displayOptions: [.compact])
-            #expect(formatter.string(from: .portTownsend) == "10U 516726m 5329260m")
-        }
-        
-        @Test func compactAndSuffixDisplayOption() {
-            let formatter = UTMCoordinateFormatter(displayOptions: [.compact, .suffix])
-            #expect(formatter.string(from: .portTownsend) == "10U 516726mE 5329260mN")
-        }
     }
     
     @Suite struct GeoURIStringParsing {
@@ -97,7 +82,6 @@ import Testing
         }
         
         @Suite struct LatitudeParsing {
-            
             @Test() func latitudeParsing() throws {
                 let formatter = GeoURILocationFormatter()
                 
@@ -140,7 +124,6 @@ import Testing
         }
         
         @Suite struct LongitudeParsing {
-            
             @Test() func longitudeParsing() throws {
                 let formatter = GeoURILocationFormatter()
                 
@@ -196,7 +179,6 @@ import Testing
         }
         
         @Suite struct AltitudeParsing {
-            
             @Test() func altitudeParsing() throws {
                 let formatter = GeoURILocationFormatter()
                 
@@ -228,7 +210,6 @@ import Testing
         }
         
         @Suite struct CRS {
-            
             @Test(arguments: [
                 "geo:48.11638,-122.77527;crs=wgs84", // If crs parameter is supplied, pattern should match
                 "geo:48.11638,-122.77527;CRS=wgs84", // Parameter name should be case insensitive

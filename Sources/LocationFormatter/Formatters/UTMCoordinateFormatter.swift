@@ -42,7 +42,9 @@ public final class UTMCoordinateFormatter: Formatter {
     public func string(from coordinate: CLLocationCoordinate2D) -> String? {
         guard CLLocationCoordinate2DIsValid(coordinate) else { return nil }
 
-        let utmCoordinate = coordinate.utmCoordinate(datum: datum)
+        guard let utmCoordinate = try? coordinate.utmCoordinate(datum: datum) else {
+            return nil
+        }
 
         var gridZone = "\(utmCoordinate.zone)"
         if let latitudeBand = coordinate.latitudeBand { gridZone += latitudeBand.rawValue }

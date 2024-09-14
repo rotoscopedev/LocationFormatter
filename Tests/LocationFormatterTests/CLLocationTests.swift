@@ -3,9 +3,7 @@ import Testing
 @testable import LocationFormatter
 
 @Suite struct CLLocationTests {
-    
     @Suite struct HorizontalUncertainty {
-        
         @Test func positiveValue() {
             let location = CLLocation(
                 coordinate: .pointNemo,
@@ -44,7 +42,6 @@ import Testing
     }
     
     @Suite struct VerticalUncertainty {
-        
         @Test(arguments:[1.23, -1.23, 0.0])
         func zeroValue(altitude: Double) {
             let location = CLLocation(

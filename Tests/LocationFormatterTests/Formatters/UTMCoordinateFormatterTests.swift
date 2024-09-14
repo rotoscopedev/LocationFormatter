@@ -42,7 +42,6 @@ struct UTMCoordinateFormatterTests {
     }
     
     @Suite("Parsing tests") struct CoordinateFromString {
-        
         @Test func latitudeBand() {
             let formatter = UTMCoordinateFormatter()
             
@@ -72,26 +71,28 @@ struct UTMCoordinateFormatterTests {
         }
         
         @Suite("Easting") struct EastingParsing {
-            let formatter = UTMCoordinateFormatter()
-            
             @Test func tolerance() throws {
+                let formatter = UTMCoordinateFormatter()
                 let easting = try formatter.coordinate(from: "10U 516726m E 5329260m N").utmCoordinate().easting
                 #expect(easting.isApproximatelyEqual(to: 516_726, absoluteTolerance: 0.00000001))
             }
             
             @Test("should not match 5 digits") func fiveDigits() throws {
+                let formatter = UTMCoordinateFormatter()
                 #expect(throws: ParsingError.noMatch) {
                     try formatter.coordinate(from: "10U 51672m E 5329260m N")
                 }
             }
             
             @Test("should not match 7 digits") func sevenDigits() throws {
+                let formatter = UTMCoordinateFormatter()
                 #expect(throws: ParsingError.invalidLatitudeBand) {
                     try formatter.coordinate(from: "10U 5167260m E 5329260m N")
                 }
             }
                 
             @Test("should not match a decimal") func decimalNumber() throws {
+                let formatter = UTMCoordinateFormatter()
                 #expect(throws: ParsingError.noMatch) {
                     try formatter.coordinate(from: "10U 516726.6m E 5329260m N")
                 }
@@ -99,26 +100,28 @@ struct UTMCoordinateFormatterTests {
         }
         
         @Suite("Northing") struct NorthingParsing {
-            let formatter = UTMCoordinateFormatter()
-            
             @Test func tolerance() throws {
+                let formatter = UTMCoordinateFormatter()
                 let northing = try formatter.coordinate(from: "10U 516726m E 5329260m N").utmCoordinate().northing
                 #expect(northing.isApproximatelyEqual(to: 5_329_260, absoluteTolerance: 1.0))
             }
             
             @Test("should not match 6 digits") func sixDigits() throws {
+                let formatter = UTMCoordinateFormatter()
                 #expect(throws: ParsingError.invalidLatitudeBand) {
                     try formatter.coordinate(from: "10U 516726m E 532926m N")
                 }
             }
             
             @Test("should not match 8 digits") func eightDigits() throws {
+                let formatter = UTMCoordinateFormatter()
                 #expect(throws: ParsingError.invalidLatitudeBand) {
                     try formatter.coordinate(from: "10U 516726m E 53292601m N")
                 }
             }
                 
             @Test("should not match a decimal") func decimalNumber() throws {
+                let formatter = UTMCoordinateFormatter()
                 #expect(throws: ParsingError.noMatch) {
                     try formatter.coordinate(from: "10U 516726mm E 5329260.666m N")
                 }

@@ -30,6 +30,5 @@ struct CLLocationCoordinate2DTests {
         actual = CLLocationCoordinate2D(latitude: -90, longitude: -123.393333).normalized()
         #expect(actual.latitude == -90.0)
         #expect(actual.longitude == .zero)
-        
     }
 }

@@ -1,5 +1,5 @@
  /// Options affecting how a coordinate is parsed from a string.
-public struct ParsingOptions: OptionSet, Sendable {
+public struct ParsingOptions: OptionSet, Sendable, Codable, Hashable {
     /// Disregard case when matching strings.
     public static let caseInsensitive = Self(rawValue: 1 << 0)
     /// Ignore whitespace at the beginning and end of the string.
