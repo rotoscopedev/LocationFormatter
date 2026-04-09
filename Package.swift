@@ -11,7 +11,7 @@ let package = Package(
             targets: ["LocationFormatter"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/wtw-software/UTMConversion", from: "1.4.0"),
+        .package(url: "https://github.com/rotoscopedev/UTMConversion.git", from: "1.4.0"),
     ],
     targets: [
         .target(
